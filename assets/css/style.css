@@ -1,0 +1,191 @@
+/* Configurações Globais e Variáveis de Cores (Alto Contraste) */
+:root {
+    color-scheme: light dark; /* deixa o navegador ajustar controles nativos (scrollbar, checkbox) ao tema */
+    --primary-color: #1b5e20; /* Verde escuro com alto contraste */
+    --secondary-color: #0d47a1; /* Azul escuro */
+    --background-color: #f4f6f8;
+    --surface-color: #ffffff; /* fundo de fieldset/cards */
+    --text-color: #212121;
+    --error-color: #c62828;
+    --success-color: #2e7d32;
+    --invalid-bg: #ffebee;
+    --success-bg: #e8f5e9;
+    --border-color: #ccc;
+    /* Laranja escurecido: o tom original (#ff6f00) media só 2.6:1 contra o
+       fundo e falhava o mínimo de 3:1 do WCAG 2.1 SC 1.4.11 (contraste
+       não-textual) para indicadores de foco. Este tom mede 5.17:1. */
+    --focus-outline: #bf360c;
+}
+
+/* Modo escuro: ativado automaticamente pela preferência do sistema
+   operacional/navegador do usuário (prefers-color-scheme), sem precisar
+   de um botão de alternância. Todas as cores abaixo foram recalculadas
+   e verificadas (ferramenta: script Python com a fórmula de luminância
+   relativa do WCAG) para manter no mínimo 4.5:1 em texto e 3:1 no
+   outline de foco. */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #121212;
+        --surface-color: #1e1e1e;
+        --text-color: #e8eaed;
+        --error-color: #ff6659;
+        --success-color: #69f0ae;
+        --invalid-bg: #3a1f1f;
+        --success-bg: #123322;
+        --border-color: #444;
+        --focus-outline: #ffab40;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 20px;
+}
+
+/* Foco visível para acessibilidade via teclado (WCAG 2.1 AA) */
+a:focus, button:focus, input:focus, select:focus {
+    outline: 3px solid var(--focus-outline);
+    outline-offset: 2px;
+}
+
+/* Link "Saltar para o conteúdo" (WCAG 2.4.1): fica oculto fora da tela
+   e só aparece quando recebe foco via Tab, sendo o primeiro elemento
+   focável da página */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 10px 16px;
+    z-index: 100;
+    text-decoration: none;
+    border-radius: 0 0 4px 0;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Cabeçalho e Navegação */
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+header h1 {
+    margin-bottom: 10px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover, nav a:focus {
+    text-decoration: underline;
+}
+
+/* Formulários e Validações */
+fieldset {
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    background-color: var(--surface-color);
+}
+
+legend {
+    font-weight: bold;
+    padding: 0 5px;
+}
+
+input {
+    width: 100%;
+    max-width: 400px;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #767676;
+    border-radius: 4px;
+    background-color: var(--surface-color);
+    color: var(--text-color);
+}
+
+input.campo-invalido {
+    border: 2px solid var(--error-color);
+    background-color: var(--invalid-bg);
+}
+
+input.campo-valido {
+    border: 2px solid var(--success-color);
+}
+
+.msg-erro {
+    color: var(--error-color);
+    font-size: 0.85rem;
+    display: none;
+    margin-top: 3px;
+}
+
+/* Componentes de Feedback */
+.alert {
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.alert-success {
+    background-color: var(--success-bg);
+    color: var(--success-color);
+    border: 1px solid var(--success-color);
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    color: white;
+}
+
+.badge-primary { background-color: var(--primary-color); }
+.badge-secondary { background-color: var(--secondary-color); }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 15px;
+}
+
+footer {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 15px;
+}
